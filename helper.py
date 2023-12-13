@@ -47,7 +47,7 @@ def f(img_main):
             # output image is stored
             plt.savefig('dim2.jpg')
         else:
-            st.text('myApp:argChk','Input error. Matrix dimensions do not fit.')
+            st.text('Input error. Matrix dimensions do not fit.')
 
         return output;
     final_output=grayworld5()
