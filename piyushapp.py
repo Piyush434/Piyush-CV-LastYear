@@ -6,5 +6,8 @@ img_main = st.file_uploader('Upload a PNG image', type=['png', 'jpg', 'jpeg'])
 if img_main is not None:
     image = Image.open(img_main)
     img_main = np.array(image)
-st.text(type(img_main))
-st.image(img_main)
+
+if type(img_main) != 'NoneType':
+    st.image(img_main)
+else:
+    st.subheader('Please Upload the Image')
