@@ -6,6 +6,5 @@ img_main = st.file_uploader('Upload a PNG image', type=['png', 'jpg', 'jpeg'])
 if img_main is not None:
     image = Image.open(img_main)
     img_main = np.array(image)
-
-if img_main is None:
-    st.text('hehe')
+else:
+    st.text('Please upload the image')
