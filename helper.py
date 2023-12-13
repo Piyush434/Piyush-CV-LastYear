@@ -21,6 +21,6 @@ def f(img):
     # Color balancing
     Irc = np.double(R)+np.double((gm1-rm1))*np.double((1-rm1))*np.double(G)
     plt.imshow(Irc)
-    plt.savefig('test',dpi=400)
+    plt.savefig('test')
     st.image('test.png')
     os.remove('test.png')
