@@ -67,3 +67,13 @@ def f(img_main):
     plt.savefig('gamma_transformed.jpg')
     st.text('gamma printing')
     st.image('gamma_transformed.jpg')
+    
+    #Image Sharpening using sharpening filter
+    img = cv2.imread('dim2.jpg')
+    filter1 = np.array([[-1,-1,-1],[-1,9,-1],[-1,-1,-1]])
+
+    sharpen_img = cv2.filter2D(img,-1,filter1)
+    cv2.imwrite('sharpen_image.jpg', sharpen_img)
+    plt.imshow(sharpen_img)
+    st.text('sharpen image')
+    st.image('sharpen_image.jpg')
