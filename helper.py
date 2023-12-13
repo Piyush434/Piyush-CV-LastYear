@@ -46,10 +46,10 @@ def f(img_main):
             plt.imshow(output);
             # output image is stored
             plt.savefig('dim2.jpg')
+            st.text('dim2 printing')
+            st.image('dim2.jpg')
         else:
             st.text('Input error. Matrix dimensions do not fit.')
 
         return output;
     final_output=grayworld5()
-    st.text('dim2 printing')
-    st.image('dim2.jpg')
