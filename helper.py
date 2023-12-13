@@ -18,4 +18,5 @@ def f(img):
     bm1=np.mean(Bm);
     # Color balancing
     Irc = np.double(R)+np.double((gm1-rm1))*np.double((1-rm1))*np.double(G)
-    st.image(Irc)
+    fig = plt.imshow(Irc)
+    st.image(fig)
