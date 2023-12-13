@@ -290,17 +290,22 @@ def f(img_main):
             plt.savefig('lab2.jpg')
             st.text('lab2 printing')
             st.image('lab2.jpg')
+            os.remove('lab2.jpg')
 
             plt.imshow(lab1)
             plt.savefig('lab1.jpg')
             st.text('lab1 printing')
             st.image('lab1.jpg')
+            os.remove('lab1.jpg')
 
             plt.imshow(result)
             plt.savefig('result.jpg')
             st.text('result printing')
             st.image('result.jpg')
+            os.remove('result.jpg')
 
             # img_main= cv2.imread("/content/8682-before.jpeg")
             plt.imshow(img_main)
             plt.show()
+    os.remove('dim2.jpg')
+    os.remove('gamma_transformed.jpg')
