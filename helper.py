@@ -179,8 +179,8 @@ def f(img_main):
         blue = None
         (blue, green, red) = cv2.split(image)
         return red, green, blue
-    # img = cv2.imread('gamma_transformed.jpg');
-    img = cv2.imread('dim2.jpg');
+    img = cv2.imread('gamma_transformed.jpg');
+    #img = cv2.imread('dim2.jpg');
     im=cv2.imread('sharpen_image.jpg');
 
     # convert to default img type
