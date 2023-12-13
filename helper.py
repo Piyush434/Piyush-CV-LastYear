@@ -53,3 +53,17 @@ def f(img_main):
 
         return output;
     final_output=grayworld5()
+
+    # Gamma Correction
+    # Open the image.
+    img = cv2.imread('dim2.jpg')
+
+    # Trying gamma values.
+    gamma = 1.3
+
+    # Apply gamma correction.
+    gamma_corrected = np.array(255*(img / 255) ** gamma, dtype = 'uint8')
+    plt.imshow(gamma_corrected)
+    plt.savefig('gamma_transformed.jpg')
+    st.text('gamma printing')
+    st.image('gamma_transformed.jpg')
