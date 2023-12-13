@@ -77,3 +77,39 @@ def f(img_main):
     plt.imshow(sharpen_img)
     st.text('sharpen image')
     st.image('sharpen_image.jpg')
+    
+    # Laplacian Contrast Weight
+    img = cv2.imread('sharpen_image.jpg',0)
+
+    # computes laplacian contrast weight of a given grayscale image
+    # highlights the edges and fine details
+    def laplace_contrast_weight(src_gray):
+        WL1= cv2.Laplacian(src_gray,cv2.CV_64F)
+        abs_dst = cv2.convertScaleAbs(WL1)
+        return abs_dst
+    out = laplace_contrast_weight(img)
+    # outputs 2D gaussian kernel
+    # blurring and smoothing
+    def matlab_style_gauss2D(shape=(3,3),sigma=0.5):
+        m,n = [(ss-1.)/2. for ss in shape]
+        y,x = np.ogrid[-m:m+1,-n:n+1]
+        h = np.exp( -(x*x + y*y) / (2.*sigma*sigma) )
+        h[ h < np.finfo(h.dtype).eps*h.max() ] = 0
+        sumh = h.sum()
+        if sumh != 0:
+            h /= sumh
+        return h
+
+    # highlights regions of interest
+    def saliency_detection(img):
+        kernel= np.array(matlab_style_gauss2D((3,3),1))
+        gfrgb= cv2.filter2D(img,-1,kernel,cv2.BORDER_WRAP)
+        lab= color.rgb2lab(gfrgb)
+        l = np.double(lab[:,:,0])
+        a = np.double(lab[:,:,1])
+        b = np.double(lab[:,:,2])
+        lm = np.mean(np.mean(l))
+        am = np.mean(np.mean(a))
+        bm = np.mean(np.mean(b))
+        sm = np.square(l-lm)+ np.square(a-am) + np.square((b-bm))
+        return sm
