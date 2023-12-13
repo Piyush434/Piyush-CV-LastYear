@@ -5,8 +5,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import os
 
-def f(img):
+def f(img_main):
     st.text('heere is after helper')
+    img = img_main
     # splitting image into color channels
     R = img[:,:,0]
     G = img[:,:,1]
@@ -24,7 +25,7 @@ def f(img):
     plt.savefig('test')
     st.image('test.png')
     os.remove('test.png')
-    def grayworld5(img_main):
+    def grayworld5():
         input1= img_main
         plt.imshow(input1)
         # dim contains the number of color channels in image
@@ -49,6 +50,6 @@ def f(img):
             st.text('myApp:argChk','Input error. Matrix dimensions do not fit.')
 
         return output;
-    final_output=grayworld5(img_main)
+    final_output=grayworld5()
     st.text('dim2 printing')
     st.image('dim2.jpg')
