@@ -5,6 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 def f(img):
+    st.text('heere is after helper')
     # splitting image into color channels
     R = img[:,:,0]
     G = img[:,:,1]
