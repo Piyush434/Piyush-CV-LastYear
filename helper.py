@@ -24,3 +24,31 @@ def f(img):
     plt.savefig('test')
     st.image('test.png')
     os.remove('test.png')
+    def grayworld5():
+        input1= img_main
+        plt.imshow(input1)
+        # dim contains the number of color channels in image
+        dim = np.shape(input1)[2];
+        input1 = np.array(input1,dtype='uint8')
+        output = np.zeros(np.shape(input1))
+        # if image is grayscale of color
+        if(dim==1 or dim==3):
+            # loop calculates scale value sai for each color channel
+            # balance colors in image where each channel has a similar mean intensity
+            for j in range(0,dim):
+                value1 = np.sum(np.sum(input1[:,:,j],axis=0),axis=0)
+                value2 = np.size(input1[:,:,j])
+                scalVal=value1/value2;
+                sai=(127.5/scalVal);
+                output[:,:,j]=input1[:,:,j]*sai;
+            output = np.array(output,dtype='uint8');
+            plt.imshow(output);
+            # output image is stored
+            plt.savefig('dim2.jpg')
+        else:
+            st.text('myApp:argChk','Input error. Matrix dimensions do not fit.')
+
+        return output;
+    final_output=grayworld5()
+    st.text('dim2 printing')
+    st.image('dim2.jpg')
