@@ -152,9 +152,9 @@ def f(img_main):
             gu = gauss_pyr[i]
             egu = iexpand(gauss_pyr[i+1])
             if egu.shape[0] > gu.shape[0]:
-            egu = np.delete(egu,(-1),axis=0)
+                egu = np.delete(egu,(-1),axis=0)
             if egu.shape[1] > gu.shape[1]:
-            egu = np.delete(egu,(-1),axis=1)
+                egu = np.delete(egu,(-1),axis=1)
             output.append(gu - egu)
         output.append(gauss_pyr.pop())
         return output
@@ -166,9 +166,9 @@ def f(img_main):
             lap = iexpand(lapl_pyr[i])
             lapb = lapl_pyr[i-1]
             if lap.shape[0] > lapb.shape[0]:
-            lap = np.delete(lap,(-1),axis=0)
+                lap = np.delete(lap,(-1),axis=0)
             if lap.shape[1] > lapb.shape[1]:
-            lap = np.delete(lap,(-1),axis=1)
+                lap = np.delete(lap,(-1),axis=1)
             tmp = lap + lapb
         output = tmp
         return output
