@@ -179,3 +179,123 @@ def f(img_main):
         blue = None
         (blue, green, red) = cv2.split(image)
         return red, green, blue
+    # img = cv2.imread('gamma_transformed.jpg');
+    img = cv2.imread('dim2.jpg');
+    im=cv2.imread('sharpen_image.jpg');
+
+    # convert to default img type
+    img1=np.array(img,dtype='uint8');
+    lab1=np.array(img,dtype='uint8');
+
+    img2=np.array(im,dtype='uint8');
+    lab2 = img2;
+
+    # extract red channels of img lab1 and lab2
+    R1 = np.double(lab1[:,:,0])/255
+    R2 = np.double(lab2[:,:,0])/255
+
+    # calculate laplacian contrast weights
+    WL1= laplace_contrast_weight(R1)
+    WL2= laplace_contrast_weight(R2)
+
+    # compute saliency maps
+    WS1= saliency_detection(img1)
+    WS2= saliency_detection(im)
+
+    # calculate gaussian weights
+    sigma= 0.25
+    aver= 0.5
+    WE1= np.exp(-(R1-aver)**2/(2*np.square(sigma)))
+    WE2= np.exp(-(R2-aver)**2/(2*np.square(sigma)))
+
+    # combine weights
+    W1 = (WL1 + WS1 + WE1)/(WL1 + WS1 + WE1 + WL2 + WS2 + WE2)
+    W2 = (WL2 + WS2 + WE2)/(WL1 + WS1 + WE1 + WL2 + WS2 + WE2)
+
+    # create guassian pyramids
+    Weight1= gaussian_pyramid(W1,5)
+    Weight2= gaussian_pyramid(W2,5)
+
+    R1= None
+    G1= None
+    B1= None
+    R2= None
+    G2= None
+    B2= None
+
+    R_b= []
+
+    # split r, g, b channels for images
+    (R1,G1,B1)= split_rgb(img1)
+    (R2,G2,B2)= split_rgb(img2)
+
+
+    depth=5
+    # create guassian pyramids for each color channel
+    gauss_pyr_image1r = gaussian_pyramid(R1, depth)
+    gauss_pyr_image1g = gaussian_pyramid(G1, depth)
+    gauss_pyr_image1b = gaussian_pyramid(B1, depth)
+
+    gauss_pyr_image2r = gaussian_pyramid(R2, depth)
+    gauss_pyr_image2g = gaussian_pyramid(G2, depth)
+    gauss_pyr_image2b = gaussian_pyramid(B2, depth)
+
+
+    level=5
+    # create laplacian pyramid for each color channe
+    r1  = lapl_pyramid(gauss_pyr_image1r)
+    g1  = lapl_pyramid(gauss_pyr_image1g)
+    b1  = lapl_pyramid(gauss_pyr_image1b)
+
+    r2 = lapl_pyramid(gauss_pyr_image2r)
+    g2 = lapl_pyramid(gauss_pyr_image2g)
+    b2 = lapl_pyramid(gauss_pyr_image2b)
+
+    # blend
+    R_r = np.array(Weight1)* r1 + np.array(Weight2) * r2
+    R_g = np.array(Weight1)* g1 + np.array(Weight2) * g2
+    R_b = np.array(Weight1)* b1 + np.array(Weight2) * b2
+
+    # reconstruct the blended image
+    R = collapse(R_r)
+    G = collapse(R_g)
+    B = collapse(R_b)
+
+    # ensure pixel values betn 0 & 255
+    R[R < 0] = 0
+    R[R > 255] = 255
+    R = R.astype(np.uint8)
+
+    G[G < 0] = 0
+    G[G > 255] = 255
+    G = G.astype(np.uint8)
+
+    B[B < 0] = 0
+    B[B > 255] = 255
+    B = B.astype(np.uint8)
+
+    # get the result image
+    result = np.zeros(img.shape,dtype=img.dtype)
+    tmp = []
+    tmp.append(R)
+    tmp.append(G)
+    tmp.append(B)
+    result = cv2.merge(tmp,result)
+
+    plt.imshow(lab2)
+    plt.savefig('lab2.jpg')
+    st.text('lab2 printing')
+    st.image('lab2.jpg')
+    os.remove('lab2.jpg')
+
+    plt.imshow(lab1)
+    plt.savefig('lab1.jpg')
+    st.text('lab1 printing')
+    st.image('lab1.jpg')
+    os.remove('lab1.jpg')
+
+    plt.imshow(result)
+    plt.savefig('result.jpg')
+    st.text('result printing')
+    st.image('result.jpg')
+    os.remove('reult.jpg')
