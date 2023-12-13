@@ -256,6 +256,7 @@ def f(img_main):
         R_r = np.array(Weight1)* r1 + np.array(Weight2) * r2
         R_g = np.array(Weight1)* g1 + np.array(Weight2) * g2
         R_b = np.array(Weight1)* b1 + np.array(Weight2) * b2
+    except ValueError:
         # reconstruct the blended image
         R = collapse(R_r)
         G = collapse(R_g)
@@ -299,6 +300,3 @@ def f(img_main):
         st.text('result printing')
         st.image('result.jpg')
         os.remove('reult.jpg')
-
-    except ValueError:
-        pass # do nothing
