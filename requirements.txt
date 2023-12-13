@@ -1,5 +1,4 @@
 opencv-python-headless
-os
 numpy
 scikit-image
 matplotlib
