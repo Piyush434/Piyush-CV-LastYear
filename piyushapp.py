@@ -8,6 +8,4 @@ if img_main is not None:
     img_main = np.array(image)
     st.image(img_main)
 else:
-    st.text('Please upload the image')
-
-
+    st.subheader(':heavy_exclamation_mark: Please upload the image')
