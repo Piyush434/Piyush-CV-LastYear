@@ -261,7 +261,6 @@ def f(img_main):
         R_b = np.array(Weight1)* b1 + np.array(Weight2) * b2
     except ValueError:
         pass
-    try
     # reconstruct the blended image
     R = collapse(R_r)
     G = collapse(R_g)
