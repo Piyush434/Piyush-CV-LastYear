@@ -7,5 +7,4 @@ if img_main is not None:
     image = Image.open(img_main)
     img_main = np.array(image)
 
-if img_main:
-    st.image(img_main)
+st.image(img_main)
