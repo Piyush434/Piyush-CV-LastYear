@@ -24,7 +24,7 @@ def f(img):
     plt.savefig('test')
     st.image('test.png')
     os.remove('test.png')
-    def grayworld5():
+    def grayworld5(img_main):
         input1= img_main
         plt.imshow(input1)
         # dim contains the number of color channels in image
@@ -49,6 +49,6 @@ def f(img):
             st.text('myApp:argChk','Input error. Matrix dimensions do not fit.')
 
         return output;
-    final_output=grayworld5()
+    final_output=grayworld5(img_main)
     st.text('dim2 printing')
     st.image('dim2.jpg')
