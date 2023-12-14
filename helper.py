@@ -279,6 +279,7 @@ def f(img_main):
             
         except UnboundLocalError:
             # ensure pixel values betn 0 & 255
+            st.text(R_r)
             R[R < 0] = 0
             R[R > 255] = 255
             R = R.astype(np.uint8)
