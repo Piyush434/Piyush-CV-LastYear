@@ -314,17 +314,12 @@ def f(img_main):
                 st.image('lab1.jpg')
             os.remove('lab1.jpg')
 
-
-            temp = True
             
             plt.imshow(result)
             plt.savefig('result.jpg')
             # st.text('result printing')
             st.header(' Final Result: ')
-            if temp:
-                st.image('output.png')
-            else:
-                st.image('result.jpg')
+            st.image('lab2.jpg)
             os.remove('result.jpg')
 
             # img_main= cv2.imread("/content/8682-before.jpeg")
