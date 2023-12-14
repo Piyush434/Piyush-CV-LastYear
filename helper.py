@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import os
 
 def f(img_main):
-    st.text('heere is after helper')
     img = img_main
     # splitting image into color channels
     R = img[:,:,0]
@@ -47,13 +46,17 @@ def f(img_main):
             # output image is stored
             plt.savefig('dim2.jpg')
             st.text('dim2 printing')
-            st.image('dim2.jpg')
+            
         else:
             st.text('Input error. Matrix dimensions do not fit.')
 
         return output;
     final_output=grayworld5()
 
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader('Gray World Algo o/p:')
+        st.image('dim2.jpg')
     # Gamma Correction
     # Open the image.
     img = cv2.imread('dim2.jpg')
@@ -66,7 +69,10 @@ def f(img_main):
     plt.imshow(gamma_corrected)
     plt.savefig('gamma_transformed.jpg')
     st.text('gamma printing')
-    st.image('gamma_transformed.jpg')
+    with col2:
+        st.subheader('Gamma Transofrmed o/p:')
+        st.image('gamma_transformed.jpg')
+    
     
     #Image Sharpening using sharpening filter
     img = cv2.imread('dim2.jpg')
