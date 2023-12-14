@@ -14,6 +14,7 @@ st.divider()
 if img_main is not None:
     image = Image.open(img_main)
     img_main = np.array(image)
+    st.subheader('Your Input Image: ')
     st.image(img_main)
     helper.f(img_main)
 else:
