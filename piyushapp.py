@@ -3,7 +3,14 @@ import numpy as np
 from PIL import Image
 import helper
 
+image = Image.open('mitaoe-logo.jpg')
+st.image(image)
+st.header('Enhancing Underwater Images with Color Balance and Fusion')
+st.text('Final Year CV Group Project')
+st.devider()
+st.header('Upload the Underwate Image (.png or .jpg or .jpeg)')
 img_main = st.file_uploader('Upload a PNG image', type=['png', 'jpg', 'jpeg'])
+st.devider()
 if img_main is not None:
     image = Image.open(img_main)
     img_main = np.array(image)
