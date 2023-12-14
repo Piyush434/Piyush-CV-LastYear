@@ -4,6 +4,7 @@ from skimage import color
 import streamlit as st
 import matplotlib.pyplot as plt
 import os
+import warnings
 
 def f(img_main):
     img = img_main
@@ -83,7 +84,6 @@ def f(img_main):
     sharpen_img = cv2.filter2D(img,-1,filter1)
     cv2.imwrite('sharpen_image.jpg', sharpen_img)
     plt.imshow(sharpen_img)
-    st.text('sharpen image')
     with col2:
         st.subheader('Sharpen Image o/p:')
         st.image('sharpen_image.jpg')
@@ -261,61 +261,67 @@ def f(img_main):
     g2 = lapl_pyramid(gauss_pyr_image2g)
     b2 = lapl_pyramid(gauss_pyr_image2b)
 
+    # Ignore VisibleDeprecationWarning
+    warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
+
     # blend
-    try:
-        R_r = np.array(Weight1)* r1 + np.array(Weight2) * r2
-        R_g = np.array(Weight1)* g1 + np.array(Weight2) * g2
-        R_b = np.array(Weight1)* b1 + np.array(Weight2) * b2
-    except ValueError:
-        try:
-            # reconstruct the blended image
-            R = collapse(R_r)
-            G = collapse(R_g)
-            B = collapse(R_b)
+    R_r = np.array(Weight1)* r1 + np.array(Weight2) * r2
+    R_g = np.array(Weight1)* g1 + np.array(Weight2) * g2
+    R_b = np.array(Weight1)* b1 + np.array(Weight2) * b2
+    # except ValueError:
+    #     try:
+    #         # reconstruct the blended image
+    #         R = collapse(R_r)
+    #         G = collapse(R_g)
+    #         B = collapse(R_b)
 
             
-        except UnboundLocalError:
-            # ensure pixel values betn 0 & 255
-            R[R < 0] = 0
-            R[R > 255] = 255
-            R = R.astype(np.uint8)
+    #     except UnboundLocalError:
+    #         # ensure pixel values betn 0 & 255
+    #         R[R < 0] = 0
+    #         R[R > 255] = 255
+    #         R = R.astype(np.uint8)
 
-            G[G < 0] = 0
-            G[G > 255] = 255
-            G = G.astype(np.uint8)
+    #         G[G < 0] = 0
+    #         G[G > 255] = 255
+    #         G = G.astype(np.uint8)
 
-            B[B < 0] = 0
-            B[B > 255] = 255
-            B = B.astype(np.uint8)
+    #         B[B < 0] = 0
+    #         B[B > 255] = 255
+    #         B = B.astype(np.uint8)
 
-            # get the result image
-            result = np.zeros(img.shape,dtype=img.dtype)
-            tmp = []
-            tmp.append(R)
-            tmp.append(G)
-            tmp.append(B)
-            result = cv2.merge(tmp,result)
+    #         # get the result image
+    #         result = np.zeros(img.shape,dtype=img.dtype)
+    #         tmp = []
+    #         tmp.append(R)
+    #         tmp.append(G)
+    #         tmp.append(B)
+    #         result = cv2.merge(tmp,result)
 
-            plt.imshow(lab2)
-            plt.savefig('lab2.jpg')
-            st.text('lab2 printing')
-            st.image('lab2.jpg')
-            os.remove('lab2.jpg')
+    #         col1, col2 = st.columns(2)
+    #         plt.imshow(lab2)
+    #         plt.savefig('lab2.jpg')
+    #         st.text('lab2 printing')
+    #         with col1:
+    #             st.subheader('Output (A):')
+    #             st.image('lab2.jpg')
+    #         os.remove('lab2.jpg')
 
-            plt.imshow(lab1)
-            plt.savefig('lab1.jpg')
-            st.text('lab1 printing')
-            st.image('lab1.jpg')
-            os.remove('lab1.jpg')
+    #         plt.imshow(lab1)
+    #         plt.savefig('lab1.jpg')
+    #         with col2:
+    #             st.subheader('Output (B): ')
+    #             st.image('lab1.jpg')
+    #         os.remove('lab1.jpg')
 
-            plt.imshow(result)
-            plt.savefig('result.jpg')
-            st.text('result printing')
-            st.image('result.jpg')
-            os.remove('result.jpg')
+    #         plt.imshow(result)
+    #         plt.savefig('result.jpg')
+    #         st.text('result printing')
+    #         st.image('result.jpg')
+    #         os.remove('result.jpg')
 
-            # img_main= cv2.imread("/content/8682-before.jpeg")
-            plt.imshow(img_main)
-            plt.show()
-    os.remove('dim2.jpg')
-    os.remove('gamma_transformed.jpg')
+    #         # img_main= cv2.imread("/content/8682-before.jpeg")
+    #         plt.imshow(img_main)
+    #         plt.show()
+    # os.remove('dim2.jpg')
+    # os.remove('gamma_transformed.jpg')
