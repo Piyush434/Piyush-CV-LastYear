@@ -20,9 +20,12 @@ def f(img_main):
     bm1=np.mean(Bm);
     # Color balancing
     Irc = np.double(R)+np.double((gm1-rm1))*np.double((1-rm1))*np.double(G)
+    col1, col2 = st.columns(2)
     plt.imshow(Irc)
     plt.savefig('test')
-    st.image('test.png')
+    with col1:
+        st.subheader('Color Balancing o/p:')
+        st.image('test.png')
     os.remove('test.png')
     def grayworld5():
         input1= img_main
@@ -45,7 +48,6 @@ def f(img_main):
             plt.imshow(output);
             # output image is stored
             plt.savefig('dim2.jpg')
-            st.text('dim2 printing')
             
         else:
             st.text('Input error. Matrix dimensions do not fit.')
@@ -53,8 +55,8 @@ def f(img_main):
         return output;
     final_output=grayworld5()
 
-    col1, col2 = st.columns(2)
-    with col1:
+    
+    with col2:
         st.subheader('Gray World Algo o/p:')
         st.image('dim2.jpg')
     # Gamma Correction
@@ -64,12 +66,12 @@ def f(img_main):
     # Trying gamma values.
     gamma = 1.3
 
+    col1, col2 = st.columns(2)
     # Apply gamma correction.
     gamma_corrected = np.array(255*(img / 255) ** gamma, dtype = 'uint8')
     plt.imshow(gamma_corrected)
     plt.savefig('gamma_transformed.jpg')
-    st.text('gamma printing')
-    with col2:
+    with col1:
         st.subheader('Gamma Transofrmed o/p:')
         st.image('gamma_transformed.jpg')
     
@@ -82,7 +84,9 @@ def f(img_main):
     cv2.imwrite('sharpen_image.jpg', sharpen_img)
     plt.imshow(sharpen_img)
     st.text('sharpen image')
-    st.image('sharpen_image.jpg')
+    with col2:
+        st.subheader('Sharpen Image o/p:')
+        st.image('sharpen_image.jpg')
     
     # Laplacian Contrast Weight
     img = cv2.imread('sharpen_image.jpg',0)
