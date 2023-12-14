@@ -302,7 +302,6 @@ def f(img_main):
             col1, col2 = st.columns(2)
             plt.imshow(lab2)
             plt.savefig('lab2.jpg')
-            st.text('lab2 printing')
             with col1:
                 st.subheader('Output (A):')
                 st.image('lab2.jpg')
@@ -321,6 +320,7 @@ def f(img_main):
             plt.imshow(result)
             plt.savefig('result.jpg')
             # st.text('result printing')
+            st.header(' Final Result: ')
             if temp:
                 st.image('output.png')
             else:
