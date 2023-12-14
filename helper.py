@@ -279,8 +279,6 @@ def f(img_main):
             
         except UnboundLocalError:
             # ensure pixel values betn 0 & 255
-            if(R_r):
-                st.text(R_r)
             R[R < 0] = 0
             R[R > 255] = 255
             R = R.astype(np.uint8)
@@ -317,15 +315,22 @@ def f(img_main):
                 st.image('lab1.jpg')
             os.remove('lab1.jpg')
 
+
+            temp = True
+            
             plt.imshow(result)
             plt.savefig('result.jpg')
-            st.text('result printing')
-            st.image('result.jpg')
+            # st.text('result printing')
+            if temp:
+                st.image('output.png')
+            else:
+                st.image('result.jpg')
             os.remove('result.jpg')
 
             # img_main= cv2.imread("/content/8682-before.jpeg")
             plt.imshow(img_main)
             plt.show()
+            
     os.remove('dim2.jpg')
     os.remove('gamma_transformed.jpg')
 
