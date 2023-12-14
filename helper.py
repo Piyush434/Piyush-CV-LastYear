@@ -305,7 +305,7 @@ def f(img_main):
             with col1:
                 st.subheader('Output (A):')
                 st.image('lab2.jpg')
-            os.remove('lab2.jpg')
+            # os.remove('lab2.jpg')
 
             plt.imshow(lab1)
             plt.savefig('lab1.jpg')
@@ -320,6 +320,7 @@ def f(img_main):
             # st.text('result printing')
             st.header(' Final Result: ')
             st.image('lab2.jpg')
+            os.remove('lab2.jpg')
             os.remove('result.jpg')
 
             # img_main= cv2.imread("/content/8682-before.jpeg")
